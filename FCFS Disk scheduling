@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int i,n;
+	printf("enter no.of requests: ");
+	scanf("%d",&n);
+	int requests[n];
+	printf("enter requests:");
+	for(i=0;i<n;i++){
+		scanf("%d",&requests[i]);
+	}
+	int head;
+	printf("enter initial head position:");
+	scanf("%d",&head);
+	int seek_time = 0;
+	seek_time = abs(head-requests[0]);
+	for(i=1;i<n;i++){
+		seek_time = seek_time+abs(requests[i]-requests[i-1]);
+	}
+	printf("total seek_time : %d\n",seek_time);
+	return 0;
+}
+
+
+OUTPUT:
+Enter the number of requests: 6
+Enter the requests: 345
+567
+789
+453
+677
+238
+Enter the initial head position: 234
+Total seek time: 1554
+
+--------------------------------
+Process exited after 20.69 seconds with return value 0
+Press any key to continue . . .

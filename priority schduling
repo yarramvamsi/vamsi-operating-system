@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct process{
+    int pid;
+    int burst_time;
+    int priority;
+};
+
+void swap(struct process *xp, struct process *yp)
+{
+    struct process temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void priority(struct process p[], int n)
+{
+    int i, j;
+    for (i = 0; i < n-1; i++)
+    {
+        
+        for (j = 0; j < n-i-1; j++)
+        {
+            if (p[j].priority > p[j+1].priority)
+            {
+                swap(&p[j], &p[j+1]);
+            }
+        }
+    }
+    
+    printf("\nOrder of execution:\n");
+    for(i=0;i<n;i++){
+        printf("P%d ",p[i].pid);
+    }
+    
+    float avg_wt=0, avg_tat=0;
+    int wt[n],tat[n];
+    wt[0]=0;
+    tat[0]=p[0].burst_time;
+    for(i=1;i<n;i++){
+        wt[i]=wt[i-1]+p[i-1].burst_time;
+        tat[i]=tat[i-1]+p[i].burst_time;
+        avg_wt+=wt[i];
+        avg_tat+=tat[i];
+    }
+    avg_wt/=n;
+    avg_tat/=n;
+    printf("\n\nAverage waiting time: %0.2f",avg_wt);
+    printf("\nAverage turnaround time: %0.2f",avg_tat);
+}
+
+int main(){
+    int n,i;
+    printf("Enter the number of processes: ");
+    scanf("%d",&n);
+    struct process p[n];
+    for(i=0;i<n;i++){
+        printf("\nProcess %d\n",i+1);
+        p[i].pid=i+1;
+        printf("Enter burst time: ");
+        scanf("%d",&p[i].burst_time);
+        printf("Enter priority: ");
+        scanf("%d",&p[i].priority);
+    }
+    priority(p,n);
+    return 0;
+}
+OUTPUT:
+
+Enter the number of processes: 4
+
+Process 1
+Enter burst time: 45
+Enter priority: 2
+
+Process 2
+Enter burst time: 65
+Enter priority: 1
+
+Process 3
+Enter burst time: 32
+Enter priority: 3
+
+Process 4
+Enter burst time: 12
+Enter priority: 4
+
+Order of execution:
+P2 P1 P3 P4
+
+Average waiting time: 79.25
+Average turnaround time: 101.50
+--------------------------------
+Process exited after 33.49 seconds with return value 0
+Press any key to continue . . .

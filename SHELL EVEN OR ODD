@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "enter number"
+read n
+r=`expr $n % 2`
+if [ $r -eq 0 ]
+then 
+echo "$n is even"
+else
+echo "$n is odd"
+fi
+
+OUTPUT:
+5
+enter number
+5 is odd
+
+[Execution complete with exit code 0]
+
